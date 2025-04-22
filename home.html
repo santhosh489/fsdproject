@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPL 2024 - Magic Moments</title>
+    <style>
+        /* Full-screen background image */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://i.pinimg.com/736x/11/4a/87/114a87e284917ee095c31695ff8cbd4a.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #f0f0f0;
+        }
+
+        h2 {
+            margin-top: 40px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .slider-container {
+            max-width: 80%;
+            margin: 30px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        body.dark .slider-container {
+            background-color: rgba(30, 30, 30, 0.9);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            /* width: 500%; This is 5 slides, each will take 100% width */
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;  /* Adjusted to cover full width of the container */
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            max-width: 90%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .caption.dark {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ff9800;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #264cff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s, color 0.3s;
+            z-index: 1000;
+        }
+
+        .theme-toggle.dark {
+            background: #ff8c00;
+            color: #121212;
+        }
+
+        .extra-image-container {
+            max-width: 900px;
+            margin: 40px auto;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        body.dark .extra-image-container {
+            background-color: rgba(30, 30, 30, 0.9);
+        }
+
+        .extra-image-container img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .highlight-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+            margin-top: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify;
+            padding: 20px;
+            border: 2px solid #264cff;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark .highlight-description {
+            color: #ccc;
+            border-color: #ff9800;
+            background-color: #1e1e1e;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+
+    <!-- Slider Section -->
+    <section class="slider-container">
+        <h2>✨ IPL 2024 Key Moments</h2>
+        <div class="slides" id="slider">
+            <div class="slide">
+                <img src="https://i.pinimg.com/736x/d9/da/33/d9da3321024a3b0a30705dd7d2c0b8de.jpg" alt="Magic Moment 1">
+                <div class="caption">🔥 SRH posted the highest total in IPL history: 287/3!</div>
+            </div>
+            <div class="slide">
+                <img src="https://i.pinimg.com/736x/03/95/47/039547af4c487368f7907a8da1196411.jpg" alt="Magic Moment 2">
+                <div class="caption">🏏 Rishabh Pant returned as opener after 3246 days!</div>
+            </div>
+            <div class="slide">
+                <img src="https://i.pinimg.com/736x/f1/4a/6c/f14a6cd3cf1783f732fe0e72012d4c4d.jpg" alt="Magic Moment 3">
+                <div class="caption">🔥 Abhishek Sharma smashed 42 sixes — most in IPL 2024!</div>
+            </div>
+            <div class="slide">
+                <img src="https://i.pinimg.com/736x/19/4a/a8/194aa8825001af844820218b8d73a474.jpg" alt="Magic Moment 4">
+                <div class="caption">🏏 Rohit Sharma's ton against CSK after 4355 days!</div>
+            </div>
+            <div class="slide">
+                <img src="https://i.pinimg.com/736x/55/8e/7c/558e7c8573b5334b6eee7aea1a644c73.jpg" alt="Magic Moment 5">
+                <div class="caption">🔥 Harshal Patel sold for ₹11.75 Cr to PBKS!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Captains with Trophy Section -->
+    <section class="extra-image-container">
+        <h2>🌟 Captains with Trophy</h2>
+        <img src="https://i.pinimg.com/736x/95/b7/1c/95b71c8c62b0a81ce6c782cf62f9c125.jpg" alt="Captains with Trophy">
+        <p class="highlight-description">
+            🏏 The 2024 Indian Premier League (also known as IPL 17 and branded as TATA IPL 2024) was the 17th edition of the Indian Premier League. The tournament featured ten teams competing in 74 matches from 22 March to 26 May 2024. It was held across 13 cities in India, with Chennai hosting the opening ceremony and the final as the defending champions.
+
+            In the final, Kolkata Knight Riders defeated Sunrisers Hyderabad by 8 wickets to win their third IPL title.
+        </p>
+    </section>
+
+    <!-- Celebration Moment Section -->
+    <section class="extra-image-container">
+        <h2>🔥 Celebration Moment</h2>
+        <img src="https://i.pinimg.com/736x/87/c3/b9/87c3b90aa01f5196d66d6c055a60d051.jpg" alt="Celebration Moment">
+        <p class="highlight-description">
+            The Kolkata Knight Riders erupted in joy after clinching their third IPL title! The stadium roared as fireworks lit up the night sky, and fans cheered wildly for their champions. A celebration to remember — pure IPL magic! 🎉🏆
+        </p>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            document.querySelector('.theme-toggle').classList.toggle('dark');
+            document.querySelectorAll('.caption').forEach(caption => {
+                caption.classList.toggle('dark');
+            });
+        }
+
+        // Slider Logic
+        let slideIndex = 0;
+        const slides = document.querySelector('.slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        function showSlide(index) {
+            if (index >= totalSlides) {
+                slideIndex = 0;
+            } else if (index < 0) {
+                slideIndex = totalSlides - 1;
+            } else {
+                slideIndex = index;
+            }
+            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        // Show the first slide
+        showSlide(slideIndex);
+
+        // Start the slider
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>

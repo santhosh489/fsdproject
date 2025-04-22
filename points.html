@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IPL 2024 Points Table</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: linear-gradient(to bottom, #004080, #e3f2fd);
+      color: #333;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 36px;
+      color: white;
+      text-shadow: 2px 2px 5px #003366;
+    }
+
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 900px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: linear-gradient(to right, #ff6600, #ff8800);
+      color: white;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tr:hover {
+      background: #fffae6;
+      transform: scale(1.01);
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    td {
+      font-size: 14px;
+      color: #333;
+    }
+
+    footer {
+      margin-top: 20px;
+      padding: 15px;
+      background: #004080;
+      color: white;
+      font-size: 14px;
+      box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>IPL 2024 Points Table</h1>
+
+  <table id="pointsTable">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Team</th>
+        <th>Matches</th>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Points</th>
+        <th>Net Run Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JS will fill this -->
+    </tbody>
+  </table>
+
+  <footer>
+    © 2024 IPL Statistics. All rights reserved.
+  </footer>
+
+  <script>
+    const teamsData = [
+      { position: 1, team: "KKR", matches: 14, wins: 9, losses: 3, points: 18, nrr: "+1.428" },
+      { position: 2, team: "SRH", matches: 14, wins: 8, losses: 5, points: 17, nrr: "+0.414" },
+      { position: 3, team: "RR", matches: 14, wins: 8, losses: 5, points: 17, nrr: "+0.273" },
+      { position: 4, team: "RCB", matches: 14, wins: 7, losses: 7, points: 14, nrr: "0.459" },
+      { position: 5, team: "CSK", matches: 14, wins: 7, losses: 7, points: 14, nrr: "0.459" },
+      { position: 6, team: "DC", matches: 14, wins: 7, losses: 7, points: 14, nrr: "0.459" },
+      { position: 7, team: "LSG", matches: 14, wins: 7, losses: 7, points: 14, nrr: "-0.667" },
+      { position: 8, team: "GT", matches: 14, wins: 5, losses: 7, points: 12, nrr: "-1.063" },
+      { position: 9, team: "PBKS", matches: 14, wins: 5, losses: 9, points: 10, nrr: "-0.353" },
+      { position: 10, team: "MI", matches: 14, wins: 4, losses: 10, points: 8, nrr: "-0.318" }
+    ];
+
+    const tableBody = document.querySelector("#pointsTable tbody");
+
+    teamsData.forEach(team => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${team.position}</td>
+        <td>${team.team}</td>
+        <td>${team.matches}</td>
+        <td>${team.wins}</td>
+        <td>${team.losses}</td>
+        <td>${team.points}</td>
+        <td>${team.nrr}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  </script>
+
+</body>
+</html>

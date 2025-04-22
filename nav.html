@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IPL 2024</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #343454;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1001;
+    }
+
+    .hamburger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
+    .hamburger .bar {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 4px 0;
+      transition: 0.3s;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 250px;
+      height: calc(100% - 60px);
+      background-color: #1e1e2f;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .sidebar.active {
+      transform: translateX(0);
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 20px;
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid #2c2c3f;
+    }
+
+    .sidebar a:hover {
+      background-color: #333;
+    }
+
+    .content {
+      padding: 80px 20px 20px 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    .content.shifted {
+      margin-left: 250px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <button class="hamburger" onclick="toggleSidebar()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </button>
+    <h2>🏏 IPL 2024</h2>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <a href="#" onclick="loadPage(event, 'home.html')">🏠 Home</a>
+    <a href="#" onclick="loadPage(event, 'stats.html')">📊 Stats</a>
+    <a href="#" onclick="loadPage(event, 'teams.html')">👥 Teams</a>
+    <a href="#" onclick="loadPage(event, 'fixtures.html')">📅 Fixtures</a>
+    <a href="#" onclick="loadPage(event, 'points.html')">🏆 Points Table</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content" id="main-content"></div>
+
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("main-content");
+
+    function toggleSidebar() {
+      sidebar.classList.toggle("active");
+      content.classList.toggle("shifted");
+    }
+
+    function loadPage(event, page) {
+      if (event) event.preventDefault();
+
+      fetch(page)
+        .then(res => res.text())
+        .then(data => {
+          content.innerHTML = data;
+
+          if (page === 'points.html') {
+            populatePointsTable();
+          }
+
+          if (page === 'home.html') {
+            initHomePageScripts(); // Re-run slider & toggle logic
+          }
+
+          if (window.innerWidth < 768) {
+            sidebar.classList.remove("active");
+            content.classList.remove("shifted");
+          }
+        })
+        .catch(() => {
+          content.innerHTML = "<p>Error loading page.</p>";
+        });
+    }
+
+    function populatePointsTable() {
+      const teamsData = [
+        { position: 1, team: "KKR", matches: 14, wins: 9, losses: 3, points: 18, nrr: "+1.428" },
+        { position: 2, team: "SRH", matches: 14, wins: 8, losses: 5, points: 17, nrr: "+0.414" },
+        { position: 3, team: "RR", matches: 14, wins: 8, losses: 5, points: 17, nrr: "+0.273" },
+        { position: 4, team: "RCB", matches: 14, wins: 7, losses: 7, points: 14, nrr: "0.459" },
+        { position: 5, team: "CSK", matches: 14, wins: 7, losses: 7, points: 14, nrr: "0.459" },
+        { position: 6, team: "DC", matches: 14, wins: 7, losses: 7, points: 14, nrr: "0.459" },
+        { position: 7, team: "LSG", matches: 14, wins: 7, losses: 7, points: 14, nrr: "-0.667" },
+        { position: 8, team: "GT", matches: 14, wins: 5, losses: 7, points: 12, nrr: "-1.063" },
+        { position: 9, team: "PBKS", matches: 14, wins: 5, losses: 9, points: 10, nrr: "-0.353" },
+        { position: 10, team: "MI", matches: 14, wins: 4, losses: 10, points: 8, nrr: "-0.318" }
+      ];
+
+      const tableBody = document.querySelector("#pointsTable tbody");
+      if (!tableBody) return;
+
+      tableBody.innerHTML = "";
+      teamsData.forEach(team => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${team.position}</td>
+          <td>${team.team}</td>
+          <td>${team.matches}</td>
+          <td>${team.wins}</td>
+          <td>${team.losses}</td>
+          <td>${team.points}</td>
+          <td>${team.nrr}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function initHomePageScripts() {
+      const toggleBtn = document.querySelector(".theme-toggle");
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          document.body.classList.toggle("dark");
+          toggleBtn.classList.toggle("dark");
+          document.querySelectorAll('.caption').forEach(caption => caption.classList.toggle('dark'));
+        });
+      }
+
+      let slideIndex = 0;
+      const slides = document.querySelector(".slides");
+      const totalSlides = document.querySelectorAll(".slide").length;
+
+      function showSlide(index) {
+        if (!slides) return;
+        if (index >= totalSlides) slideIndex = 0;
+        else if (index < 0) slideIndex = totalSlides - 1;
+        else slideIndex = index;
+        slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+      }
+
+      showSlide(slideIndex);
+      setInterval(() => showSlide(slideIndex + 1), 5000);
+    }
+
+    // Load home page on first load
+    window.addEventListener("DOMContentLoaded", () => {
+      loadPage(new Event('load'), 'home.html');
+    });
+  </script>
+</body>
+</html>
