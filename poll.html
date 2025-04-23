@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fan Zone - IPL 2024</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff3e0;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #ff6f00;
+    }
+    .poll, .quiz {
+      background: white;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+    button {
+      margin-top: 10px;
+      background: #ff6f00;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏏 IPL 2024 Fan Zone</h1>
+    <div class="poll">
+      <h2>Who will win IPL 2025?</h2>
+      <label><input type="radio" name="winner"> KKR</label>
+      <label><input type="radio" name="winner"> RCB</label>
+      <label><input type="radio" name="winner"> SRH</label>
+      <button onclick="vote()">Vote</button>
+    </div>
+    <div class="poll">
+        <h2>Who will win ORANGE CAP in 2025?</h2>
+        <label><input type="radio" name="winner"> Virat Kohli</label>
+        <label><input type="radio" name="winner"> S.Gill</label>
+        <label><input type="radio" name="winner"> Jos Buttler</label>
+        <button onclick="vote()">Vote</button>
+      </div>
+      <div class="poll">
+        <h2>Who will win PURPLE CAP in 2025?</h2>
+        <label><input type="radio" name="winner"> Jasprit Bumrah</label>
+        <label><input type="radio" name="winner"> Harshal Patel</label>
+        <label><input type="radio" name="winner"> Yuzvendra Chahal</label>
+        <button onclick="vote()">Vote</button>
+      </div>
+      <div class="poll">
+        <h2>Who will BOWL more number of dot balls 2025?</h2>
+        <label><input type="radio" name="winner"> Bhuvneshwar Kumar</label>
+        <label><input type="radio" name="winner">Sunil Narine </label>
+        <label><input type="radio" name="winner">Ravichandran Ashwin </label>
+        <button onclick="vote()">Vote</button>
+      </div>
+    <div class="quiz">
+      <h2> Who will hit the most sixes in IPL 2025?</h2>
+      <label><input type="radio" name="six"> Virat Kohli</label>
+      <label><input type="radio" name="six"> Abhishek Sharma</label>
+      <label><input type="radio" name="six"> Rohit Sharma</label>
+      <button onclick="submitQuiz()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    function vote() {
+      // Check if any option is selected
+      const winnerOptions = document.getElementsByName('winner');
+      let selected = false;
+      for (let option of winnerOptions) {
+        if (option.checked) {
+          selected = true;
+          break;
+        }
+      }
+
+      if (selected) {
+        alert("Thank you for voting!");
+      } else {
+        alert("Please select a winner before voting.");
+      }
+    }
+
+    function submitQuiz() {
+      // Check if any option is selected
+      const sixOptions = document.getElementsByName('six');
+      let selected = false;
+      for (let option of sixOptions) {
+        if (option.checked) {
+          selected = true;
+          break;
+        }
+      }
+
+      if (selected) {
+        alert("Thank you for participating in the quiz!");
+      } else {
+        alert("Please select an answer before submitting.");
+      }
+    }
+  </script>
+</body>
+</html>
