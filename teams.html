@@ -223,7 +223,7 @@
 
     function showModal(teamName, players) {
       modalTeamName.innerText = teamName + " Squad";
-      playerList.innerHTML = players.map(player => `<li>${player}</li>`).join('');
+      playerList.innerHTML = players.map(player => <li>${player}</li>).join('');
       modal.style.display = 'flex';
     }
 
