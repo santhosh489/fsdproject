@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IPL Teams</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #1e3c72, #2a5298);
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 20px 0;
+    }
+
+    .team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .team-card {
+      background: #fff;
+      color: #333;
+      border-radius: 20px;
+      padding: 20px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .team-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .team-name {
+      font-size: 1.5rem;
+      margin: 10px 0 5px;
+    }
+
+    .captain {
+      font-weight: bold;
+      color: #555;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: linear-gradient(145deg, #ffffff, #f0f0f0);
+      color: #000;
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #444;
+    }
+
+    .modal h2 {
+      margin-bottom: 15px;
+      font-size: 24px;
+      color: #222;
+    }
+
+    .player-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .player-list li {
+      background: #ffffff;
+      border-left: 5px solid #2a5298;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      text-align: left;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (min-width: 400px) {
+      .player-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>IPL Teams</h1>
+
+  <div class="team-container" id="teams"></div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTeamName"></h2>
+      <ul class="player-list" id="playerList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const teams = [
+      {
+        name: "Chennai Super Kings",
+        logo: "https://i.pinimg.com/736x/be/44/9f/be449fb20078f58e20b0b9d36e6ac152.jpg",
+        captain: "Ruturaj Gaikwad",
+        players: ["MS Dhoni", "Moeen Ali", "Ravindra Jadeja", "Deepak Chahar", "Ben Stokes", "Shivam Dube", "Ambati Rayudu", "Devon Conway", "Maheesh Theekshana", "Matheesha Pathirana", "Tushar Deshpande"]
+      },
+      {
+        name: "Mumbai Indians",
+        logo: "https://i.pinimg.com/736x/7c/48/6d/7c486d005cad46c1183efaa9249478cb.jpg",
+        captain: "Hardik Pandya",
+        players: ["Rohit Sharma", "Ishan Kishan", "Suryakumar Yadav", "Tilak Varma", "Tim David", "Jasprit Bumrah", "Piyush Chawla", "Cameron Green", "Gerald Coetzee", "Shams Mulani", "Arjun Tendulkar"]
+      },
+      {
+        name: "Royal Challengers Bangalore",
+        logo: "https://i.pinimg.com/736x/74/19/a2/7419a22576e12615c78cbe9c557d5027.jpg",
+        captain: "Faf du Plessis",
+        players: ["Virat Kohli", "Glenn Maxwell", "Mohammed Siraj", "Dinesh Karthik", "Harshal Patel", "Wanindu Hasaranga", "Josh Hazlewood", "Mahipal Lomror", "Anuj Rawat", "Reece Topley", "Karn Sharma"]
+      },
+      {
+        name: "Kolkata Knight Riders",
+        logo: "https://i.pinimg.com/736x/91/a4/29/91a4297aec9b5ef0bccb6e61e4195484.jpg",
+        captain: "Shreyas Iyer",
+        players: ["Andre Russell", "Sunil Narine", "Nitish Rana", "Rinku Singh", "Venkatesh Iyer", "Shardul Thakur", "Umesh Yadav", "Varun Chakravarthy", "Jason Roy", "Lockie Ferguson", "Rahmanullah Gurbaz"]
+      },
+      {
+        name: "Delhi Capitals",
+        logo: "https://i.pinimg.com/736x/1d/cd/a5/1dcda5859eda244ea5610e80ae2cd046.jpg",
+        captain: "Rishabh Pant",
+        players: ["David Warner", "Prithvi Shaw", "Axar Patel", "Mitchell Marsh", "Anrich Nortje", "Kuldeep Yadav", "Lalit Yadav", "Phil Salt", "Khaleel Ahmed", "Mustafizur Rahman", "Chetan Sakariya"]
+      },
+      {
+        name: "Rajasthan Royals",
+        logo: "https://i.pinimg.com/736x/77/38/09/773809ad2003af807dc51706216a9957.jpg",
+        captain: "Sanju Samson",
+        players: ["Jos Buttler", "Yashasvi Jaiswal", "Trent Boult", "Shimron Hetmyer", "Ravichandran Ashwin", "Yuzvendra Chahal", "Devdutt Padikkal", "Navdeep Saini", "Riyan Parag", "Adam Zampa", "Sandeep Sharma"]
+      },
+      {
+        name: "Sunrisers Hyderabad",
+        logo: "https://i.pinimg.com/736x/6a/02/81/6a0281c7d1868f4daf28dca8fa021b80.jpg",
+        captain: "Pat Cummins",
+        players: ["Aiden Markram", "Rahul Tripathi", "Abdul Samad", "Bhuvneshwar Kumar", "T Natarajan", "Marco Jansen", "Washington Sundar", "Glenn Phillips", "Heinrich Klaasen", "Mayank Agarwal", "Umran Malik"]
+      },
+      {
+        name: "Punjab Kings",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Punjab_Kings_Logo.svg/1200px-Punjab_Kings_Logo.svg.png",
+        captain: "Shikhar Dhawan",
+        players: ["Kagiso Rabada", "Arshdeep Singh", "Sam Curran", "Liam Livingstone", "Jonny Bairstow", "Jitesh Sharma", "Rahul Chahar", "Rishi Dhawan", "Harpreet Brar", "Shahrukh Khan", "Nathan Ellis"]
+      },
+      {
+        name: "Gujarat Titans",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Gujarat_Titans_Logo.svg/1200px-Gujarat_Titans_Logo.svg.png",
+        captain: "Shubman Gill",
+        players: ["Rashid Khan", "David Miller", "Rahul Tewatia", "Mohammed Shami", "Wriddhiman Saha", "Kane Williamson", "Joshua Little", "Vijay Shankar", "Alzarri Joseph", "Jayant Yadav", "Yash Dayal"]
+      },
+      {
+        name: "Lucknow Super Giants",
+        logo: "https://i.pinimg.com/736x/b1/a4/c9/b1a4c97c71dfa582973de0c9e1a9dbcc.jpg",
+        captain: "KL Rahul",
+        players: ["Quinton de Kock", "Marcus Stoinis", "Deepak Hooda", "Krunal Pandya", "Avesh Khan", "Mark Wood", "Nicholas Pooran", "Kyle Mayers", "Ravi Bishnoi", "Amit Mishra", "Mohsin Khan"]
+      }
+    ];
+
+    const teamContainer = document.getElementById('teams');
+    const modal = document.getElementById('modal');
+    const modalTeamName = document.getElementById('modalTeamName');
+    const playerList = document.getElementById('playerList');
+
+    teams.forEach(team => {
+      const card = document.createElement('div');
+      card.className = 'team-card';
+      card.innerHTML = `
+        <img src="${team.logo}" alt="${team.name} Logo" class="team-logo">
+        <div class="team-name">${team.name}</div>
+        <div class="captain">Captain: ${team.captain}</div>
+      `;
+      card.addEventListener('click', () => {
+        showModal(team.name, team.players);
+      });
+      teamContainer.appendChild(card);
+    });
+
+    function showModal(teamName, players) {
+      modalTeamName.innerText = teamName + " Squad";
+      playerList.innerHTML = players.map(player => `<li>${player}</li>`).join('');
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>
