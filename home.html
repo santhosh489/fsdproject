@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>IPL 2024 - Magic Moments</title>
     <style>
-        /* Full-screen background image */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: url('https://i.pinimg.com/736x/11/4a/87/114a87e284917ee095c31695ff8cbd4a.jpg') no-repeat center center fixed;
@@ -13,6 +12,7 @@
             margin: 0;
             padding: 0;
             transition: background-color 0.3s, color 0.3s;
+            scroll-behavior: smooth;
         }
 
         body.dark {
@@ -42,7 +42,6 @@
         .slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            /* width: 500%; This is 5 slides, each will take 100% width */
         }
 
         .slide {
@@ -51,7 +50,7 @@
         }
 
         .slide img {
-            width: 100%;  /* Adjusted to cover full width of the container */
+            width: 100%;
             height: 500px;
             object-fit: cover;
             border-radius: 10px;
@@ -69,7 +68,6 @@
             font-size: 16px;
             max-width: 90%;
             box-shadow: 0 0 10px rgba(0,0,0,0.4);
-            transition: background 0.3s, color 0.3s;
         }
 
         .caption.dark {
@@ -138,51 +136,80 @@
             border-color: #ff9800;
             background-color: #1e1e1e;
         }
+
+        /* Fixed Top-Left Tiles */
+        .fixed-tiles {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1001;
+        }
+
+        .tile-btn {
+            background: #ff9800;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .tile-btn:hover {
+            background: #e07600;
+            transform: scale(1.05);
+        }
+
+        body.dark .tile-btn {
+            background: #264cff;
+            color: #fff;
+        }
+
+        body.dark .tile-btn:hover {
+            background: #1c39b7;
+        }
+
     </style>
 </head>
 <body>
     <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
 
+    <!-- Fixed Tiles -->
+    <div class="fixed-tiles">
+        <button class="tile-btn" onclick="scrollToSection('slider-section')">✨ Moments</button>
+        <button class="tile-btn" onclick="scrollToSection('captains-section')">🏆 Captains</button>
+        <button class="tile-btn" onclick="scrollToSection('celebration-section')">🎉 Celebration</button>
+    </div>
+
     <!-- Slider Section -->
-    <section class="slider-container">
+    <section id="slider-section" class="slider-container">
         <h2>✨ IPL 2024 Key Moments</h2>
         <div class="slides" id="slider">
-            <div class="slide">
-                <img src="https://i.pinimg.com/736x/d9/da/33/d9da3321024a3b0a30705dd7d2c0b8de.jpg" alt="Magic Moment 1">
-                <div class="caption">🔥 SRH posted the highest total in IPL history: 287/3!</div>
-            </div>
-            <div class="slide">
-                <img src="https://i.pinimg.com/736x/03/95/47/039547af4c487368f7907a8da1196411.jpg" alt="Magic Moment 2">
-                <div class="caption">🏏 Rishabh Pant returned as opener after 3246 days!</div>
-            </div>
-            <div class="slide">
-                <img src="https://i.pinimg.com/736x/f1/4a/6c/f14a6cd3cf1783f732fe0e72012d4c4d.jpg" alt="Magic Moment 3">
-                <div class="caption">🔥 Abhishek Sharma smashed 42 sixes — most in IPL 2024!</div>
-            </div>
-            <div class="slide">
-                <img src="https://i.pinimg.com/736x/19/4a/a8/194aa8825001af844820218b8d73a474.jpg" alt="Magic Moment 4">
-                <div class="caption">🏏 Rohit Sharma's ton against CSK after 4355 days!</div>
-            </div>
-            <div class="slide">
-                <img src="https://i.pinimg.com/736x/55/8e/7c/558e7c8573b5334b6eee7aea1a644c73.jpg" alt="Magic Moment 5">
-                <div class="caption">🔥 Harshal Patel sold for ₹11.75 Cr to PBKS!</div>
-            </div>
+            <div class="slide"><img src="https://i.pinimg.com/736x/d9/da/33/d9da3321024a3b0a30705dd7d2c0b8de.jpg" alt="Moment 1"><div class="caption">🔥 SRH posted the highest total in IPL history: 287/3!</div></div>
+            <div class="slide"><img src="https://i.pinimg.com/736x/03/95/47/039547af4c487368f7907a8da1196411.jpg" alt="Moment 2"><div class="caption">🏏 Rishabh Pant returned as opener after 3246 days!</div></div>
+            <div class="slide"><img src="https://i.pinimg.com/736x/f1/4a/6c/f14a6cd3cf1783f732fe0e72012d4c4d.jpg" alt="Moment 3"><div class="caption">🔥 Abhishek Sharma smashed 42 sixes — most in IPL 2024!</div></div>
+            <div class="slide"><img src="https://i.pinimg.com/736x/19/4a/a8/194aa8825001af844820218b8d73a474.jpg" alt="Moment 4"><div class="caption">🏏 Rohit Sharma's ton against CSK after 4355 days!</div></div>
+            <div class="slide"><img src="https://i.pinimg.com/736x/55/8e/7c/558e7c8573b5334b6eee7aea1a644c73.jpg" alt="Moment 5"><div class="caption">🔥 Harshal Patel sold for ₹11.75 Cr to PBKS!</div></div>
         </div>
     </section>
 
     <!-- Captains with Trophy Section -->
-    <section class="extra-image-container">
+    <section id="captains-section" class="extra-image-container">
         <h2>🌟 Captains with Trophy</h2>
         <img src="https://i.pinimg.com/736x/95/b7/1c/95b71c8c62b0a81ce6c782cf62f9c125.jpg" alt="Captains with Trophy">
         <p class="highlight-description">
             🏏 The 2024 Indian Premier League (also known as IPL 17 and branded as TATA IPL 2024) was the 17th edition of the Indian Premier League. The tournament featured ten teams competing in 74 matches from 22 March to 26 May 2024. It was held across 13 cities in India, with Chennai hosting the opening ceremony and the final as the defending champions.
-
             In the final, Kolkata Knight Riders defeated Sunrisers Hyderabad by 8 wickets to win their third IPL title.
         </p>
     </section>
 
     <!-- Celebration Moment Section -->
-    <section class="extra-image-container">
+    <section id="celebration-section" class="extra-image-container">
         <h2>🔥 Celebration Moment</h2>
         <img src="https://i.pinimg.com/736x/87/c3/b9/87c3b90aa01f5196d66d6c055a60d051.jpg" alt="Celebration Moment">
         <p class="highlight-description">
@@ -192,7 +219,6 @@
 
     <!-- Scripts -->
     <script>
-        // Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('dark');
             document.querySelector('.theme-toggle').classList.toggle('dark');
@@ -207,13 +233,9 @@
         const totalSlides = document.querySelectorAll('.slide').length;
 
         function showSlide(index) {
-            if (index >= totalSlides) {
-                slideIndex = 0;
-            } else if (index < 0) {
-                slideIndex = totalSlides - 1;
-            } else {
-                slideIndex = index;
-            }
+            if (index >= totalSlides) slideIndex = 0;
+            else if (index < 0) slideIndex = totalSlides - 1;
+            else slideIndex = index;
             slides.style.transform = `translateX(-${slideIndex * 100}%)`;
         }
 
@@ -221,11 +243,13 @@
             showSlide(slideIndex + 1);
         }
 
-        // Show the first slide
         showSlide(slideIndex);
-
-        // Start the slider
         setInterval(nextSlide, 5000);
+
+        // Scroll to Section
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
